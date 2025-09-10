@@ -33,14 +33,14 @@ def calculate_indicators(df):
     minus_di = abs(100 * (minus_dm.ewm(alpha=1/14).mean() / atr))
     dx = (abs(plus_di - minus_di) / abs(plus_di + minus_di)) * 100
     adx = ((dx.shift(1) * (14 - 1)) + dx) / 14
-    df['adx'] = adx.rolling(14).mean().iloc[-1]
+    df['adx'] = adx.rolling(14).mean()
+adx_value = df['adx'].iloc[-1] if not df['adx'].empty else 0    
     return df
 
 def run_bot():
     print("--- بدء دورة جديدة للبوت ---")
     df = get_market_data()
-    df = calculate_indicators(df)
-    adx_value = df['adx'].iloc[-1]
+    df = calculate_indicators(df)    
     print(f"قيمة ADX الحالية: {adx_value:.2f}")
 
     if adx_value > 25:
