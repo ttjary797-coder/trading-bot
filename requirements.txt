@@ -1,3 +1,2 @@
-Plain Text
 python-binance
 pandas
